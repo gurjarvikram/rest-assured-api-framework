@@ -14,6 +14,8 @@ import pojo.Mobile;
 import pojo.WebAutomation;
 
 public class OAuthTest {
+	
+	// Deserialize JSON response into POJO class with Rest Assured
 
 	@Test
     public void validateCourseTitles() {
