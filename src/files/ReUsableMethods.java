@@ -1,12 +1,15 @@
 package files;
 
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 
 public class ReUsableMethods {
 	
-	public static JsonPath rawToJson(String response)
+	public static JsonPath rawToJson(Response resp)
 	{
-		JsonPath js1 = new JsonPath(response);
+		String respon=resp.asString();
+		JsonPath js1 = new JsonPath(respon);
+		System.out.println(respon);
 		return js1;
 	}
 
