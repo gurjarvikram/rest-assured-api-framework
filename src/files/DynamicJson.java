@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+
 
 public class DynamicJson {
 	
@@ -15,12 +17,12 @@ public class DynamicJson {
 	{
 		RestAssured.baseURI="http://216.10.245.166";
 		
-		String response = given()
+		Response response = given()
 		.header("Content-Type", "application/json")
 		.body(payload.Addbook(isbn,aisle))
 		.when().post("Library/Addbook.php")
 		.then().assertThat().statusCode(200)
-		.extract().response().asString();
+		.extract().response();
 		
 		JsonPath js = ReUsableMethods.rawToJson(response);
 		String id = js.get("ID");
@@ -36,12 +38,12 @@ public class DynamicJson {
 		{
 			System.out.println("Deleting Book ID: " + bookID);
 			
-			String deleteResponse = given()
+			Response deleteResponse = given()
 			.header("Content-Type", "application/json")
 			.body("{ \"ID\" : \"" + bookID + "\" }")
 			.when().post("Library/DeleteBook.php")
 			.then().assertThat().statusCode(200)
-			.extract().response().asString();
+			.extract().response();
 			
 			JsonPath js = ReUsableMethods.rawToJson(deleteResponse);
 			String message = js.getString("msg");
